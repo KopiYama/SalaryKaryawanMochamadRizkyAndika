@@ -1,9 +1,15 @@
 package com.kopiyama.view;
 
+import com.kopiyama.service.impl.DataEmployeeServiceImpl;
+import com.kopiyama.view.print.AddEmployeeMenu;
+import com.kopiyama.view.print.PrintDisplay;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainView {
+    private DataEmployeeServiceImpl dataEmployeeService = new DataEmployeeServiceImpl();
+    private AddEmployeeMenu addEmployeeMenu = new AddEmployeeMenu();  // Instance of AddEmployeeMenu
 
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -35,28 +41,28 @@ public class MainView {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Add Employee");
-                    //belum ada method
+                    int positionChoice = addEmployeeMenu.displayPositionMenu();  // Get position choice from user
+                    if (positionChoice != 0) {
+                    }
                     break;
                 case 2:
                     System.out.println("Edit Employee");
-                    //belum ada method
+                    // Method implementation needed
                     break;
                 case 3:
-                    System.out.println("Data Employee");
-                    //belum ada method
+                    dataEmployeeService.displayAllEmployees();
                     break;
                 case 4:
                     System.out.println("Data Payroll");
-                    //belum ada method
+                    // Method implementation needed
                     break;
                 case 5:
                     System.out.println("Delete Employee");
-                    //belum ada method
+                    // Method implementation needed
                     break;
                 case 6:
                     System.out.println("Searching");
-                    //belum ada method
+                    // Method implementation needed
                     break;
                 case 0:
                     System.out.println("Exiting...");
