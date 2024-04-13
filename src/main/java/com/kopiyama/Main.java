@@ -1,6 +1,9 @@
 package com.kopiyama;
 
 import com.kopiyama.model.*;
+import com.kopiyama.repository.RepositoryEmployee;
+
+import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -18,5 +21,11 @@ public class Main {
         System.out.println(programmer1);
         System.out.println(projectLeader1);
         System.out.println(analyst1);
+
+        RepositoryEmployee.initializeDefaultData();
+        List<Employee> allEmployees = RepositoryEmployee.getAllEmployee();
+        for (Employee employee : allEmployees) {
+            System.out.println(employee);
+        }
     }
 }
