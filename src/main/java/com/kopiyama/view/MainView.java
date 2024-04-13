@@ -1,5 +1,8 @@
 package com.kopiyama.view;
 
+import com.kopiyama.repository.RepositoryEmployee;
+import com.kopiyama.view.print.PrintDisplay;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -37,6 +40,8 @@ public class MainView {
                 case 1:
                     System.out.println("Add Employee");
                     //belum ada method
+                    RepositoryEmployee.initializeDefaultData();
+                    PrintDisplay.displayAllEmployees(RepositoryEmployee.getAllEmployee());
                     break;
                 case 2:
                     System.out.println("Edit Employee");
