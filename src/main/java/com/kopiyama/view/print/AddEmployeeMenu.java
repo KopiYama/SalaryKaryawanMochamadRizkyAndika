@@ -3,9 +3,11 @@ package com.kopiyama.view.print;
 import com.kopiyama.model.Employee;
 import com.kopiyama.model.Placement;
 import com.kopiyama.model.Programmer;
+import com.kopiyama.model.ProjectLeader;
 import com.kopiyama.service.impl.AddEmployeeServiceImpl;
 import com.kopiyama.service.PlacementService;
 import com.kopiyama.service.impl.AddProgrammerServiceImpl;
+import com.kopiyama.service.impl.AddProjectLeaderServiceImpl;
 
 import java.util.Scanner;
 
@@ -15,6 +17,7 @@ public class AddEmployeeMenu {
     private AddEmployeeServiceImpl employeeService = new AddEmployeeServiceImpl();
     private PlacementService placementService = new PlacementService();
     private AddProgrammerServiceImpl programmerService = new AddProgrammerServiceImpl();
+    private AddProjectLeaderServiceImpl projectLeaderService = new AddProjectLeaderServiceImpl();
 
 
     public int displayPositionMenu() {
@@ -55,7 +58,7 @@ public class AddEmployeeMenu {
                 addProgrammerDetails();
                 break;
             case 3:  // Project Leader
-                //addProjectLeaderDetails();  // Metode ini harus Anda buat
+                addProjectLeaderDetails();  // Metode ini harus Anda buat
                 break;
             case 4:  // Analyst
                 //addAnalystDetails();  // Metode ini harus Anda buat
@@ -106,5 +109,26 @@ public class AddEmployeeMenu {
         Programmer newProgrammer = new Programmer(name, address, age, "", umk, jobdesc, new Placement(placementName, umk), progLanguage, experiences, 0.0);
         programmerService.addProgrammer(newProgrammer);
         System.out.println("\nAdd Programmer Success");
+    }
+
+    private void addProjectLeaderDetails() {
+        System.out.println("\nAdd New Project Leader");
+        System.out.print("Add Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Add Address: ");
+        String address = scanner.nextLine();
+        System.out.print("Add Age: ");
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.print("Add Jobdesc: ");
+        String jobdesc = scanner.nextLine();
+        System.out.print("Add Total Projects: ");
+        int totalProjects = Integer.parseInt(scanner.nextLine());
+        System.out.print("Add Placement: ");
+        String placementName = scanner.nextLine();
+        double umk = placementService.getUmkByPlacementName(placementName);
+
+        ProjectLeader newProjectLeader = new ProjectLeader(name, address, age, "", umk, jobdesc, new Placement(placementName, umk), totalProjects, 0.0);
+        projectLeaderService.addProjectLeader(newProjectLeader);
+        System.out.println("Add Project Leader Success");
     }
 }
