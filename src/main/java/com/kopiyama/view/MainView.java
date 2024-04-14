@@ -2,6 +2,7 @@ package com.kopiyama.view;
 
 import com.kopiyama.service.impl.DataEmployeeServiceImpl;
 import com.kopiyama.view.print.AddEmployeeMenu;
+import com.kopiyama.view.print.EditEmployeeDisplay;
 import com.kopiyama.view.print.PrintDisplay;
 
 import java.util.InputMismatchException;
@@ -9,7 +10,8 @@ import java.util.Scanner;
 
 public class MainView {
     private DataEmployeeServiceImpl dataEmployeeService = new DataEmployeeServiceImpl();
-    private AddEmployeeMenu addEmployeeMenu = new AddEmployeeMenu();  // Instance of AddEmployeeMenu
+    private AddEmployeeMenu addEmployeeMenu = new AddEmployeeMenu();
+    private EditEmployeeDisplay editEmployeeDisplay = new EditEmployeeDisplay();
 
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -46,8 +48,7 @@ public class MainView {
                     }
                     break;
                 case 2:
-                    System.out.println("Edit Employee");
-                    // Method implementation needed
+                    editEmployeeDisplay.displayEditEmployeeMenu();
                     break;
                 case 3:
                     dataEmployeeService.displayAllEmployees();
