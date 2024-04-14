@@ -1,23 +1,17 @@
 package com.kopiyama.view.print;
 
 import com.kopiyama.model.*;
-import com.kopiyama.service.impl.AddAnalystServiceImpl;
-import com.kopiyama.service.impl.AddEmployeeServiceImpl;
+import com.kopiyama.service.impl.*;
 import com.kopiyama.service.PlacementService;
-import com.kopiyama.service.impl.AddProgrammerServiceImpl;
-import com.kopiyama.service.impl.AddProjectLeaderServiceImpl;
-
-import java.util.Scanner;
+import com.kopiyama.util.Helper;
 
 public class AddEmployeeMenu {
 
-    private Scanner scanner = new Scanner(System.in);
     private AddEmployeeServiceImpl employeeService = new AddEmployeeServiceImpl();
     private PlacementService placementService = new PlacementService();
     private AddProgrammerServiceImpl programmerService = new AddProgrammerServiceImpl();
     private AddProjectLeaderServiceImpl projectLeaderService = new AddProjectLeaderServiceImpl();
     private AddAnalystServiceImpl analystService = new AddAnalystServiceImpl();
-
 
     public int displayPositionMenu() {
         int choice = -1;
@@ -28,18 +22,13 @@ public class AddEmployeeMenu {
             System.out.println("3. Project Leader");
             System.out.println("4. Analyst");
             System.out.println("0. Back to Main Menu");
-            System.out.print("Enter your choice: ");
+            choice = Helper.ensureValidIntInput("Enter your choice: ");
 
-            try {
-                choice = Integer.parseInt(scanner.nextLine().trim());
-                if (choice < 0 || choice > 4) {
-                    System.out.println("Invalid choice. Please enter a number between 0 and 4.");
-                    continue;
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
+            if (choice < 0 || choice > 4) {
+                System.out.println("Invalid choice. Please enter a number between 0 and 4.");
+                continue;
             }
+            break;
         } while (true);
 
         if (choice > 0 && choice <= 4) {
@@ -70,16 +59,11 @@ public class AddEmployeeMenu {
 
     private void addEmployeeDetails() {
         System.out.println("\nAdd New For Employee");
-        System.out.print("Add Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Add Address: ");
-        String address = scanner.nextLine();
-        System.out.print("Add Age: ");
-        int age = Integer.parseInt(scanner.nextLine());  // Ensure valid integer input
-        System.out.print("Add Jobdesc: ");
-        String jobdesc = scanner.nextLine();
-        System.out.print("Add Placement: ");
-        String placementName = scanner.nextLine();
+        String name = Helper.ensureValidNameInput("Add Name: ");
+        String address = Helper.ensureValidStringInput("Add Address: ");
+        int age = Helper.ensureValidIntInput("Add Age: ");
+        String jobdesc = Helper.ensureValidStringInput("Add Jobdesc: ");
+        String placementName = Helper.ensureValidPlacementInput("Add Placement: ");
         double umk = placementService.getUmkByPlacementName(placementName);
 
         Employee newEmployee = new Employee(name, address, age, "", umk, jobdesc, new Placement(placementName, umk));
@@ -89,20 +73,13 @@ public class AddEmployeeMenu {
 
     private void addProgrammerDetails() {
         System.out.println("\nAdd New For Programmer");
-        System.out.print("Add Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Add Address: ");
-        String address = scanner.nextLine();
-        System.out.print("Add Age: ");
-        int age = Integer.parseInt(scanner.nextLine());
-        System.out.print("Add Jobdesc: ");
-        String jobdesc = scanner.nextLine();
-        System.out.print("Add Prog Language: ");
-        String progLanguage = scanner.nextLine();
-        System.out.print("Experiences: ");
-        int experiences = Integer.parseInt(scanner.nextLine());
-        System.out.print("Add Placement: ");
-        String placementName = scanner.nextLine();
+        String name = Helper.ensureValidNameInput("Add Name: ");
+        String address = Helper.ensureValidStringInput("Add Address: ");
+        int age = Helper.ensureValidIntInput("Add Age: ");
+        String jobdesc = Helper.ensureValidStringInput("Add Jobdesc: ");
+        String progLanguage = Helper.ensureValidStringInput("Add Prog Language: ");
+        int experiences = Helper.ensureValidIntInput("Experiences: ");
+        String placementName = Helper.ensureValidPlacementInput("Add Placement: ");
         double umk = placementService.getUmkByPlacementName(placementName);
 
         Programmer newProgrammer = new Programmer(name, address, age, "", umk, jobdesc, new Placement(placementName, umk), progLanguage, experiences, 0.0);
@@ -112,18 +89,12 @@ public class AddEmployeeMenu {
 
     private void addProjectLeaderDetails() {
         System.out.println("\nAdd New Project Leader");
-        System.out.print("Add Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Add Address: ");
-        String address = scanner.nextLine();
-        System.out.print("Add Age: ");
-        int age = Integer.parseInt(scanner.nextLine());
-        System.out.print("Add Jobdesc: ");
-        String jobdesc = scanner.nextLine();
-        System.out.print("Add Total Projects: ");
-        int totalProjects = Integer.parseInt(scanner.nextLine());
-        System.out.print("Add Placement: ");
-        String placementName = scanner.nextLine();
+        String name = Helper.ensureValidNameInput("Add Name: ");
+        String address = Helper.ensureValidStringInput("Add Address: ");
+        int age = Helper.ensureValidIntInput("Add Age: ");
+        String jobdesc = Helper.ensureValidStringInput("Add Jobdesc: ");
+        int totalProjects = Helper.ensureValidIntInput("Add Total Projects: ");
+        String placementName = Helper.ensureValidPlacementInput("Add Placement: ");
         double umk = placementService.getUmkByPlacementName(placementName);
 
         ProjectLeader newProjectLeader = new ProjectLeader(name, address, age, "", umk, jobdesc, new Placement(placementName, umk), totalProjects, 0.0);
@@ -133,16 +104,11 @@ public class AddEmployeeMenu {
 
     private void addAnalystDetails() {
         System.out.println("\nAdd New Analyst");
-        System.out.print("Add Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Add Address: ");
-        String address = scanner.nextLine();
-        System.out.print("Add Age: ");
-        int age = Integer.parseInt(scanner.nextLine());
-        System.out.print("Add Jobdesc: ");
-        String jobdesc = scanner.nextLine();
-        System.out.print("Add Placement: ");
-        String placementName = scanner.nextLine();
+        String name = Helper.ensureValidNameInput("Add Name: ");
+        String address = Helper.ensureValidStringInput("Add Address: ");
+        int age = Helper.ensureValidIntInput("Add Age: ");
+        String jobdesc = Helper.ensureValidStringInput("Add Jobdesc: ");
+        String placementName = Helper.ensureValidPlacementInput("Add Placement: ");
         double umk = placementService.getUmkByPlacementName(placementName);
 
         Analyst newAnalyst = new Analyst(name, address, age, "", umk, jobdesc, new Placement(placementName, umk), 0.0);

@@ -2,13 +2,12 @@ package com.kopiyama.view.print;
 
 import com.kopiyama.service.impl.SearchingServiceImpl;
 import com.kopiyama.model.Employee;
+import com.kopiyama.util.Helper;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class SearchEmployeeMenu {
 
-    private Scanner scanner = new Scanner(System.in);
     private SearchingServiceImpl searchingService = new SearchingServiceImpl();
 
     public void displaySearchMenu() {
@@ -16,8 +15,7 @@ public class SearchEmployeeMenu {
             System.out.println("\nSearching Data Karyawan");
             System.out.println("1. Search By Placement");
             System.out.println("0. Back To Main Menu");
-            System.out.print("\nEnter your choice: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = Helper.ensureValidIntInput("\nEnter your choice: ");
 
             if (choice == 0) {
                 break;
@@ -35,8 +33,7 @@ public class SearchEmployeeMenu {
     }
 
     private void searchByPlacement() {
-        System.out.print("Masukan kota Penempatan: ");
-        String placement = scanner.nextLine();
+        String placement = Helper.ensureValidPlacementInput("\nMasukan kota Penempatan: ");
         List<Employee> results = searchingService.searchByPlacement(placement);
         if (results.isEmpty()) {
             System.out.println("No employees found for the given placement.");

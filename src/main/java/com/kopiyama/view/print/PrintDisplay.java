@@ -2,9 +2,9 @@ package com.kopiyama.view.print;
 
 import com.kopiyama.model.Employee;
 import com.kopiyama.service.impl.DataPayrollServiceImpl;
+import com.kopiyama.util.Helper;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class PrintDisplay {
 
@@ -49,14 +49,10 @@ public class PrintDisplay {
     }
 
     public static void printReturnToMainMenu() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\n0. Back to main menu");
-        System.out.print("Enter your choice: ");
-        int choice = scanner.nextInt();
+        int choice = Helper.ensureValidIntInput("\n0. Back to main menu\nEnter your choice: ");
         while (choice != 0) {
             System.out.println("Invalid choice. Please enter 0 to return to the main menu.");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
+            choice = Helper.ensureValidIntInput("Enter your choice: ");
         }
     }
 }
