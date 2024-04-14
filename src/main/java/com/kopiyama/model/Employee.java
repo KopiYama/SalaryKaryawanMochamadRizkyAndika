@@ -57,6 +57,10 @@ public class Employee extends Person{
         this.placement = placement;
     }
 
+    public double getAllowance() {
+        return 0;  // Default to 0 if not overridden
+    }
+
     @Override
     public String toString() {
         return "Employee : \n" +

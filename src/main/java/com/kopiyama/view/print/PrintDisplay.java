@@ -1,6 +1,7 @@
 package com.kopiyama.view.print;
 
 import com.kopiyama.model.Employee;
+import com.kopiyama.service.impl.DataPayrollServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +22,30 @@ public class PrintDisplay {
                     employee.getPlacement().getPlacementName());
         }
         System.out.println("+------------+--------------------------------+--------------------------------+-----+--------------------------+----------------+");
+    }
+
+    public static void printPayrollData() {
+        DataPayrollServiceImpl payrollService = new DataPayrollServiceImpl();
+        List<Employee> employees = payrollService.getAllEmployeeData();
+        double totalPayroll = payrollService.calculateTotalPayroll();
+
+        System.out.println("Data Payroll");
+        System.out.println("+--------------+----------------------+----------------------+----------------------+----------------------+----------------------+");
+        System.out.println("| Employee ID  | Name                 | Job Description      | Placement            | Allowance            | Salary               |");
+        System.out.println("+--------------+----------------------+----------------------+----------------------+----------------------+----------------------+");
+        for (Employee emp : employees) {
+            System.out.printf("| %-12s | %-20s | %-20s | %-20s | %-20s | %-20s |\n",
+                    emp.getEmployeeId(),
+                    emp.getName(),
+                    emp.getJobdesc(),
+                    emp.getPlacement().getPlacementName(),
+                    String.format("Rp%.2f", emp.getAllowance()),
+                    String.format("Rp%.2f", emp.getSalary()));
+        }
+        System.out.println("+--------------+----------------------+----------------------+----------------------+----------------------+----------------------+");
+        System.out.printf("| Total Payroll                                                                                            | Rp%-5.2f        |\n", totalPayroll);
+        System.out.println("+--------------+----------------------+----------------------+----------------------+----------------------+----------------------+");
+        printReturnToMainMenu();
     }
 
     public static void printReturnToMainMenu() {

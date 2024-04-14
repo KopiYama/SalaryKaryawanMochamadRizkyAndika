@@ -17,6 +17,11 @@ public class AddEmployeeServiceImpl implements AddEmployeeService {
         }
         String newId = String.format("Emp-%03d", employeeCount + 1);
         employee.setEmployeeId(newId);
+
+        // Pastikan placement adalah instance baru jika memungkinkan
+        Placement newPlacement = new Placement(employee.getPlacement().getPlacementName(), employee.getPlacement().getPlacementUmk());
+        employee.setPlacement(newPlacement);
+
         RepositoryEmployee.addEmployee(employee);
     }
 }

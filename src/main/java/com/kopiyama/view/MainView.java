@@ -54,8 +54,7 @@ public class MainView {
                     dataEmployeeService.displayAllEmployees();
                     break;
                 case 4:
-                    System.out.println("Data Payroll");
-                    // Method implementation needed
+                    PrintDisplay.printPayrollData();
                     break;
                 case 5:
                     System.out.println("Delete Employee");
