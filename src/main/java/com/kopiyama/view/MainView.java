@@ -2,6 +2,7 @@ package com.kopiyama.view;
 
 import com.kopiyama.service.impl.DataEmployeeServiceImpl;
 import com.kopiyama.view.print.AddEmployeeMenu;
+import com.kopiyama.view.print.DeleteEmployeeView;
 import com.kopiyama.view.print.EditEmployeeDisplay;
 import com.kopiyama.view.print.PrintDisplay;
 
@@ -37,7 +38,7 @@ public class MainView {
 
                 choice = Integer.parseInt(input);
             } catch (InputMismatchException | NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
+                System.out.println("\nInvalid input. Please enter a valid number.");
                 continue;
             }
 
@@ -48,6 +49,7 @@ public class MainView {
                     }
                     break;
                 case 2:
+                    System.out.println("\nEdit Employee by Placement");
                     editEmployeeDisplay.displayEditEmployeeMenu();
                     break;
                 case 3:
@@ -57,8 +59,7 @@ public class MainView {
                     PrintDisplay.printPayrollData();
                     break;
                 case 5:
-                    System.out.println("Delete Employee");
-                    // Method implementation needed
+                    new DeleteEmployeeView().displayDeleteEmployeeMenu();
                     break;
                 case 6:
                     System.out.println("Searching");
@@ -68,7 +69,7 @@ public class MainView {
                     System.out.println("Exiting...");
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("\nInvalid choice. Please try again.");
             }
         } while (choice != 0);
         scanner.close();
