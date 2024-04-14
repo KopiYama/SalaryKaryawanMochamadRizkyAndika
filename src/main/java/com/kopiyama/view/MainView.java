@@ -1,10 +1,7 @@
 package com.kopiyama.view;
 
 import com.kopiyama.service.impl.DataEmployeeServiceImpl;
-import com.kopiyama.view.print.AddEmployeeMenu;
-import com.kopiyama.view.print.DeleteEmployeeView;
-import com.kopiyama.view.print.EditEmployeeDisplay;
-import com.kopiyama.view.print.PrintDisplay;
+import com.kopiyama.view.print.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,6 +10,7 @@ public class MainView {
     private DataEmployeeServiceImpl dataEmployeeService = new DataEmployeeServiceImpl();
     private AddEmployeeMenu addEmployeeMenu = new AddEmployeeMenu();
     private EditEmployeeDisplay editEmployeeDisplay = new EditEmployeeDisplay();
+    private SearchEmployeeMenu searchEmployeeMenu = new SearchEmployeeMenu();
 
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -53,6 +51,7 @@ public class MainView {
                     editEmployeeDisplay.displayEditEmployeeMenu();
                     break;
                 case 3:
+                    System.out.println("\nData All Employees");
                     dataEmployeeService.displayAllEmployees();
                     break;
                 case 4:
@@ -62,8 +61,7 @@ public class MainView {
                     new DeleteEmployeeView().displayDeleteEmployeeMenu();
                     break;
                 case 6:
-                    System.out.println("Searching");
-                    // Method implementation needed
+                    searchEmployeeMenu.displaySearchMenu();
                     break;
                 case 0:
                     System.out.println("Exiting...");

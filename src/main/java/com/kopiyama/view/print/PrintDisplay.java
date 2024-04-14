@@ -29,7 +29,7 @@ public class PrintDisplay {
         List<Employee> employees = payrollService.getAllEmployeeData();
         double totalPayroll = payrollService.calculateTotalPayroll();
 
-        System.out.println("Data Payroll");
+        System.out.println("\nData Payroll");
         System.out.println("+--------------+----------------------+----------------------+----------------------+----------------------+----------------------+");
         System.out.println("| Employee ID  | Name                 | Job Description      | Placement            | Allowance            | Salary               |");
         System.out.println("+--------------+----------------------+----------------------+----------------------+----------------------+----------------------+");
