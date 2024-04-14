@@ -5,20 +5,25 @@ import com.kopiyama.model.Programmer;
 import com.kopiyama.repository.RepositoryEmployee;
 import com.kopiyama.service.AddProgrammerService;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AddProgrammerServiceImpl implements AddProgrammerService {
 
     @Override
     public void addProgrammer(Programmer programmer) {
-        // Find the highest existing programmer ID
-        int highestId = RepositoryEmployee.getAllEmployee().stream()
-                .filter(emp -> emp instanceof Programmer && emp.getEmployeeId().startsWith("Prog-"))
-                .mapToInt(emp -> Integer.parseInt(emp.getEmployeeId().substring(5)))
-                .max()
-                .orElse(0);  // Use 0 if no programmers are found
+        Set<Integer> usedIds = new HashSet<>();
+        RepositoryEmployee.getAllEmployee().stream()
+                .filter(e -> e instanceof Programmer && e.getEmployeeId().startsWith("Prog-"))
+                .forEach(e -> usedIds.add(Integer.parseInt(e.getEmployeeId().substring(5))));
 
-        // Generate new programmer ID based on the highest ID found
-        String newId = String.format("Prog-%03d", highestId + 1);
-        programmer.setEmployeeId(newId);
-        RepositoryEmployee.addEmployee(programmer);  // Add to repository
+        int newId = 1;
+        while (usedIds.contains(newId)) {
+            newId++;
+        }
+
+        String programmerId = String.format("Prog-%03d", newId);
+        programmer.setEmployeeId(programmerId);
+        RepositoryEmployee.addEmployee(programmer);
     }
 }
