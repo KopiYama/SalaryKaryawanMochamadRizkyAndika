@@ -12,18 +12,25 @@ public class AddAnalystServiceImpl implements AddAnalystService {
 
     @Override
     public void addAnalyst(Analyst analyst) {
-        Set<Integer> usedIds = new HashSet<>();
-        RepositoryEmployee.getAllEmployee().stream()
-                .filter(e -> e instanceof Analyst && e.getEmployeeId().startsWith("Al-"))
-                .forEach(e -> usedIds.add(Integer.parseInt(e.getEmployeeId().substring(3))));
-
-        int newId = 1;
-        while (usedIds.contains(newId)) {
-            newId++;
+        int analystCount = 0;
+        // Iterate over all employees to count current analysts
+        for (Employee emp : RepositoryEmployee.getAllEmployee()) {
+            if (emp instanceof Analyst) {
+                analystCount++;
+            }
         }
 
-        String analystId = String.format("Al-%03d", newId);
-        analyst.setEmployeeId(analystId);
+        // Find the highest existing analyst ID
+        int highestId = RepositoryEmployee.getAllEmployee().stream()
+                .filter(emp -> emp instanceof Analyst && emp.getEmployeeId().startsWith("Al-"))
+                .mapToInt(emp -> Integer.parseInt(emp.getEmployeeId().substring(3)))
+                .max()
+                .orElse(0);  // Use 0 if no analysts are found
+
+        // Generate new analyst ID based on the highest ID found
+        String newId = String.format("Al-%03d", highestId + 1);
+        analyst.setEmployeeId(newId);
         RepositoryEmployee.addEmployee(analyst);
     }
+
 }

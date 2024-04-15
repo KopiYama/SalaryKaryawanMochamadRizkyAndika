@@ -12,18 +12,26 @@ public class AddProgrammerServiceImpl implements AddProgrammerService {
 
     @Override
     public void addProgrammer(Programmer programmer) {
-        Set<Integer> usedIds = new HashSet<>();
-        RepositoryEmployee.getAllEmployee().stream()
-                .filter(e -> e instanceof Programmer && e.getEmployeeId().startsWith("Prog-"))
-                .forEach(e -> usedIds.add(Integer.parseInt(e.getEmployeeId().substring(5))));
-
-        int newId = 1;
-        while (usedIds.contains(newId)) {
-            newId++;
+        int programmerCount = 0;
+        // Get all employees and count only those who are programmers
+        for (Employee emp : RepositoryEmployee.getAllEmployee()) {
+            if (emp instanceof Programmer) {  // Check if the employee is an instance of Programmer
+                programmerCount++;
+            }
         }
+        // Generate new programmer ID
+        String newId = String.format("Prog-%03d", programmerCount + 1);
+        // Find the highest existing programmer ID
+        int highestId = RepositoryEmployee.getAllEmployee().stream()
+                .filter(emp -> emp instanceof Programmer && emp.getEmployeeId().startsWith("Prog-"))
+                .mapToInt(emp -> Integer.parseInt(emp.getEmployeeId().substring(5)))
+                .max()
+                .orElse(0);  // Use 0 if no programmers are found
 
-        String programmerId = String.format("Prog-%03d", newId);
-        programmer.setEmployeeId(programmerId);
-        RepositoryEmployee.addEmployee(programmer);
+        // Generate new programmer ID based on the highest ID found
+        newId = String.format("Prog-%03d", highestId + 1); // Menggunakan kembali variabel yang sudah dideklarasikan
+        programmer.setEmployeeId(newId);
+        RepositoryEmployee.addEmployee(programmer);  // Add to repository
     }
+
 }

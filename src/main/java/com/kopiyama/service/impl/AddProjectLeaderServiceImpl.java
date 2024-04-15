@@ -12,18 +12,24 @@ public class AddProjectLeaderServiceImpl implements AddProjectLeaderService {
 
     @Override
     public void addProjectLeader(ProjectLeader projectLeader) {
-        Set<Integer> usedIds = new HashSet<>();
-        RepositoryEmployee.getAllEmployee().stream()
-                .filter(e -> e instanceof ProjectLeader && e.getEmployeeId().startsWith("PL-"))
-                .forEach(e -> usedIds.add(Integer.parseInt(e.getEmployeeId().substring(3))));
-
-        int newId = 1;
-        while (usedIds.contains(newId)) {
-            newId++;
+        int projectLeaderCount = 0;
+        for (Employee emp : RepositoryEmployee.getAllEmployee()) {
+            if (emp instanceof ProjectLeader) {
+                projectLeaderCount++;
+            }
         }
+        String newId = String.format("PL-%03d", projectLeaderCount + 1);
+        // Find the highest existing project leader ID
+        int highestId = RepositoryEmployee.getAllEmployee().stream()
+                .filter(emp -> emp instanceof ProjectLeader && emp.getEmployeeId().startsWith("PL-"))
+                .mapToInt(emp -> Integer.parseInt(emp.getEmployeeId().substring(3)))
+                .max()
+                .orElse(0);  // Use 0 if no project leaders are found
 
-        String projectLeaderId = String.format("PL-%03d", newId);
-        projectLeader.setEmployeeId(projectLeaderId);
+        // Generate new project leader ID based on the highest ID found
+        newId = String.format("PL-%03d", highestId + 1); // Menggunakan kembali variabel yang sudah dideklarasikan
+        projectLeader.setEmployeeId(newId);
         RepositoryEmployee.addEmployee(projectLeader);
     }
+
 }
